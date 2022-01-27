@@ -1,5 +1,6 @@
 build
 .vscode
+.vs
 toolchain.cmake
 Boost-prefix/
 CMakeCache.txt
