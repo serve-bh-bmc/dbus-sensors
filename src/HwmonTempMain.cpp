@@ -63,11 +63,14 @@ void createSensors(
     const std::shared_ptr<boost::container::flat_set<std::string>>&
         sensorsChanged)
 {
+    std::cerr << "[HWMONTEMP_log]create sensor function was called"<<std::endl;
     auto getter = std::make_shared<GetSensorConfiguration>(
         dbusConnection,
         std::move([&io, &objectServer, &sensors, &dbusConnection,
                    sensorsChanged](
                       const ManagedObjectType& sensorConfigurations) {
+            std::cerr << "[HWMONTEMP_log]get sensor configuration function was called"
+                      << std::endl;
             bool firstScan = sensorsChanged == nullptr;
 
             std::vector<fs::path> paths;
@@ -116,6 +119,11 @@ void createSensors(
                 {
                     continue;
                 }
+
+                std::cerr << "[DBUS_hwmontempsensor_log] found hwmon name:" << deviceName
+                          << " bus = " << bus << " address = " << addr
+                          << std::endl;
+
                 const SensorData* sensorData = nullptr;
                 const std::string* interfacePath = nullptr;
                 const char* sensorType = nullptr;
@@ -133,6 +141,9 @@ void createSensors(
                         {
                             baseConfiguration = &(*sensorBase);
                             sensorType = type;
+                            std::cerr
+                                << "[HWMONTEMP_log]found sensor type = " << type
+                                << std::endl;
                             break;
                         }
                     }
