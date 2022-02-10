@@ -52,6 +52,7 @@ HwmonTempSensor::HwmonTempSensor(
     std::enable_shared_from_this<HwmonTempSensor>(), objServer(objectServer),
     inputDev(io, open(path.c_str(), O_RDONLY)), waitTimer(io), path(path)
 {
+    std::cerr << "input path = " << path.c_str() << std::endl;
     name = name + "_temp";
     sensorInterface = objectServer.add_interface(
         "/xyz/openbmc_project/sensors/temperature/" + name,
@@ -93,6 +94,7 @@ void HwmonTempSensor::setupRead(void)
     boost::asio::async_read_until(inputDev, readBuf, '\n',
                                   [weakRef](const boost::system::error_code& ec,
                                             std::size_t /*bytes_transfered*/) {
+                                      std::cerr << "read ended." << std::endl;
                                       std::shared_ptr<HwmonTempSensor> self =
                                           weakRef.lock();
                                       if (self)
