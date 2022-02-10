@@ -263,7 +263,7 @@ void createSensors(
                         sensor = nullptr;
                         sensor = std::make_shared<HwmonTempSensor>(
                             *hwmonFile, sensorType, objectServer,
-                            dbusConnection, io, sensorName,
+                            dbusConnection, io, sensorName + "_temp",
                             std::vector<thresholds::Threshold>(),
                             *interfacePath, readState);
                         sensor->setupRead();
