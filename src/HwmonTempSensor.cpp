@@ -52,8 +52,7 @@ HwmonTempSensor::HwmonTempSensor(
     std::enable_shared_from_this<HwmonTempSensor>(), objServer(objectServer),
     inputDev(io, open(path.c_str(), O_RDONLY)), waitTimer(io), path(path)
 {
-    std::cerr << "[HWMONTEMP_log] creating interfaces and associations, name = "
-              << name << "   and sensorName = " << sensorName << std::endl;
+    name = name + "_temp";
     sensorInterface = objectServer.add_interface(
         "/xyz/openbmc_project/sensors/temperature/" + name,
         "xyz.openbmc_project.Sensor.Value");

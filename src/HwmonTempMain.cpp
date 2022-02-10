@@ -253,9 +253,7 @@ void createSensors(
                         break;
                     }
                     std::string sensorName =
-                        std::get<std::string>(findKey->second) + "_temp";
-                    std::cerr << "[HWMONTEMP_log] sensorname = " << sensorName
-                              << std::endl;
+                        std::get<std::string>(findKey->second);
                     hwmonFile = getFullHwmonFilePath(
                         directory.string(), "temp" + std::to_string(i + 1),
                         permitSet);
