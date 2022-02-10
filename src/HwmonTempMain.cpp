@@ -253,7 +253,9 @@ void createSensors(
                         break;
                     }
                     std::string sensorName =
-                        std::get<std::string>(findKey->second);
+                        std::get<std::string>(findKey->second) + "_temp";
+                    std::cerr << "[HWMONTEMP_log] sensorname = " << sensorName
+                              << std::endl;
                     hwmonFile = getFullHwmonFilePath(
                         directory.string(), "temp" + std::to_string(i + 1),
                         permitSet);
@@ -263,7 +265,7 @@ void createSensors(
                         sensor = nullptr;
                         sensor = std::make_shared<HwmonTempSensor>(
                             *hwmonFile, sensorType, objectServer,
-                            dbusConnection, io, sensorName + "_temp",
+                            dbusConnection, io, sensorName,
                             std::vector<thresholds::Threshold>(),
                             *interfacePath, readState);
                         sensor->setupRead();
