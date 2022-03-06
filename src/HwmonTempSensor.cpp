@@ -78,6 +78,7 @@ HwmonTempSensor::HwmonTempSensor(
 
 HwmonTempSensor::~HwmonTempSensor()
 {
+    std::cerr << "removing interface  "<< name << std::endl;
     // close the input dev to cancel async operations
     inputDev.close();
     waitTimer.cancel();
@@ -94,7 +95,7 @@ void HwmonTempSensor::setupRead(void)
     boost::asio::async_read_until(inputDev, readBuf, '\n',
                                   [weakRef](const boost::system::error_code& ec,
                                             std::size_t /*bytes_transfered*/) {
-                                      std::cerr << "read ended." << std::endl;
+                                      std::cerr << "read ended.\n";
                                       std::shared_ptr<HwmonTempSensor> self =
                                           weakRef.lock();
                                       if (self)
