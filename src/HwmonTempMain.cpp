@@ -302,6 +302,7 @@ void interfaceRemoved(
             (std::find(interfaces.begin(), interfaces.end(),
                        sensorIt->second->objectType) != interfaces.end()))
         {
+            std::cerr << "remove interface" << std::endl;
             sensorIt = sensors.erase(sensorIt);
         }
         else
